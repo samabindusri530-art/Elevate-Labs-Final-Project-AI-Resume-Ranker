@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}HR Dashboard - AI ATS{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>📊 HR Analytics Dashboard</h1>
+
+    <p class="subtitle">Recruitment Overview</p>
+
+    <div class="dashboard-cards">
+
+        <div class="stat-card">
+            <h2>{{ total_resumes }}</h2>
+            <p>Total Resumes</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ highest_score }}%</h2>
+            <p>Highest Score</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ average_score }}%</h2>
+            <p>Average Score</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ matched_candidates }}</h2>
+            <p>Candidates with Skill Matches</p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

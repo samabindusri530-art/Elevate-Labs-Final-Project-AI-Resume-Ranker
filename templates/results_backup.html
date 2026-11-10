@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🏆 Resume Ranking Results</h1>
+        <p class="subtitle">Candidates ranked by job-description similarity.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Resume Name</th>
+                    <th>Similarity Score</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.rank }}</td>
+                    <td>{{ result.filename }}</td>
+                    <td>{{ result.score }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/download" class="download">Download HR Report 📥</a>
+
+        <br><br>
+        <a href="/" class="back">← Back to Home</a>
+
+        <p class="note">Similarity scores are decision-support indicators, not hiring decisions. HR should review each resume independently.</p>
+    </div>
+
+</body>
+</html>

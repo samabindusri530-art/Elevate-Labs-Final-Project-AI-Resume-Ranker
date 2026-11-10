@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Reports - AI ATS{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>📑 Recruitment Reports</h1>
+
+    <p class="subtitle">Download candidate analysis reports.</p>
+
+    <div class="candidate-card">
+
+        <h2>CSV Report</h2>
+        <p>Download candidate ranking data.</p>
+        <a href="/download" class="download">
+            Download CSV
+        </a>
+
+        <br><br>
+
+        <h2>PDF Report</h2>
+        <p>Download the detailed HR report.</p>
+        <a href="/download-pdf" class="download">
+            Download PDF
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

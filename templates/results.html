@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analytics Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📊 HR Analytics Dashboard</h1>
+    <p class="subtitle">AI-Powered Resume Analysis</p>
+
+    <div class="dashboard-cards">
+
+        <div class="stat-card">
+            <h2>{{ results|length }}</h2>
+            <p>Total Resumes</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ results[0].score }}%</h2>
+            <p>Highest Score</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ (results|sum(attribute='score') / results|length)|round(2) }}%</h2>
+            <p>Average Score</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ results|selectattr('matched_skills')|list|length }}</h2>
+            <p>Resumes with Matches</p>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">🏆 Candidate Rankings</h2>
+
+    {% for result in results %}
+    <div class="candidate-card">
+
+        <h2>Rank #{{ result.rank }} - {{ result.filename }}</h2>
+
+        <div class="score-box">
+            <h3>{{ result.score }}%</h3>
+            <p>Final Weighted Score</p>
+        </div>
+
+        <div class="score-details">
+            <p><strong>Resume Similarity:</strong> {{ result.similarity_score }}%</p>
+            <p><strong>Skill Match:</strong> {{ result.skill_score }}%</p>
+        </div>
+
+        <h3 class="matched-title">✅ Matched Skills</h3>
+
+        <div class="skills">
+            {% for skill in result.matched_skills %}
+                <span class="matched">{{ skill }}</span>
+            {% else %}
+                <p>No matching skills found.</p>
+            {% endfor %}
+        </div>
+
+        <h3 class="missing-title">❌ Missing Skills</h3>
+
+        <div class="skills">
+            {% for skill in result.missing_skills %}
+                <span class="missing">{{ skill }}</span>
+            {% else %}
+                <p>No missing skills detected.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% endfor %}
+
+    <a href="/download" class="download">📊 Download CSV Report</a>
+
+    <a href="/download-pdf" class="download pdf-download">📄 Download PDF Report</a>
+
+    <br><br>
+
+    <a href="/" class="back">← Back to Home</a>
+
+    <p class="note">
+        Scores are decision-support indicators, not hiring decisions.
+        HR should independently review each resume.
+    </p>
+
+</div>
+
+</body>
+</html>

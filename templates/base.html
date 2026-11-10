@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}AI-Powered Resume Ranker{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <h2 class="logo">🤖 AI-Powered Resume Ranker</h2>
+
+        <nav class="side-links">
+
+            <a href="/">🏠 Home</a>
+
+            <a href="/upload">📄 Upload Resumes</a>
+
+            <a href="/dashboard">📊 HR Dashboard</a>
+
+            <a href="/rankings">🏆 Candidate Rankings</a>
+
+            <a href="/skills">🎯 Skill Matching</a>
+
+            <a href="/candidates">👥 Candidates</a>
+
+            <a href="/tracking">📌 Candidate Tracking</a>
+
+            <a href="/reports">📑 Reports</a>
+
+        </nav>
+
+    </aside>
+
+    <main class="main-content">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

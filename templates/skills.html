@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Skill Matching - AI ATS{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>🎯 Skill Matching</h1>
+    <p class="subtitle">Candidate skill analysis</p>
+
+    {% for result in results %}
+
+    <div class="candidate-card">
+
+        <h2>{{ result.filename }}</h2>
+
+        <h3 class="matched-title">✅ Matched Skills</h3>
+
+        <div class="skills">
+            {% for skill in result.matched_skills %}
+                <span class="matched">{{ skill }}</span>
+            {% else %}
+                <p>No matching skills.</p>
+            {% endfor %}
+        </div>
+
+        <h3 class="missing-title">❌ Missing Skills</h3>
+
+        <div class="skills">
+            {% for skill in result.missing_skills %}
+                <span class="missing">{{ skill }}</span>
+            {% else %}
+                <p>No missing skills.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

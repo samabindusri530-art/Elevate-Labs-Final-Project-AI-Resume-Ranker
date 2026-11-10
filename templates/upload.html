@@ -1,0 +1,106 @@
+
+{% extends "base.html" %}
+
+{% block title %}Upload Resumes - AI-Powered Resume Ranker{% endblock %}
+
+{% block content %}
+
+<div class="upload-page">
+
+    <div class="page-heading">
+        <h1>📄 Resume Upload</h1>
+        <p>Upload multiple candidate resumes and compare them against a job description.</p>
+    </div>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="upload-card">
+
+            <h2>01. Job Description</h2>
+            <p>Enter the job role, responsibilities and required skills.</p>
+
+            <textarea
+                name="job_description"
+                rows="9"
+                placeholder="Example: We are looking for a Python Developer with knowledge of Python, SQL, Flask, Machine Learning, HTML and CSS..."
+                required></textarea>
+
+        </div>
+
+        <div class="upload-card">
+
+            <h2>02. Upload Candidate Resumes</h2>
+            <p>Select multiple PDF resumes from your computer.</p>
+
+            <div class="file-area">
+
+                <div class="upload-icon">📁</div>
+
+                <h3>Choose PDF Resumes</h3>
+
+                <p>Select 2, 3, 5 or more PDF files.</p>
+
+                <input
+                    type="file"
+                    id="resumeInput"
+                    name="resumes"
+                    accept=".pdf,application/pdf"
+                    multiple
+                    required>
+
+                <div id="fileCount" style="margin-top:15px;font-weight:bold;">
+                    No files selected
+                </div>
+
+                <ul id="fileList" style="text-align:left;margin-top:12px;"></ul>
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="rank-button">
+            🚀 Rank All Resumes
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+const resumeInput = document.getElementById("resumeInput");
+const fileCount = document.getElementById("fileCount");
+const fileList = document.getElementById("fileList");
+
+resumeInput.addEventListener("change", function () {
+
+    const files = this.files;
+
+    fileList.innerHTML = "";
+
+    if (files.length === 0) {
+        fileCount.textContent = "No files selected";
+        return;
+    }
+
+    fileCount.textContent = files.length + " PDF Resume(s) Selected";
+
+    for (let i = 0; i < files.length; i++) {
+
+        const li = document.createElement("li");
+
+        li.textContent = files[i].name;
+
+        fileList.appendChild(li);
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

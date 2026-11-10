@@ -1,0 +1,116 @@
+
+{% extends "base.html" %}
+
+{% block title %}Candidate Rankings{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>🏆 Candidate Rankings</h1>
+
+    <p class="subtitle">
+        AI-assisted resume matching and candidate comparison
+    </p>
+
+    {% if results %}
+
+    <div class="dashboard-cards">
+
+        <div class="stat-card">
+            <h2>{{ results|length }}</h2>
+            <p>Total Candidates</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ results[0].score }}%</h2>
+            <p>Highest Matching Score</p>
+        </div>
+
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Resume</th>
+                    <th>Similarity</th>
+                    <th>Skill Score</th>
+                    <th>Final Score</th>
+                    <th>Matched Skills</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for candidate in results %}
+
+                <tr>
+
+                    <td>
+                        {% if candidate.rank == 1 %}
+                            🥇
+                        {% elif candidate.rank == 2 %}
+                            🥈
+                        {% elif candidate.rank == 3 %}
+                            🥉
+                        {% else %}
+                            {{ candidate.rank }}
+                        {% endif %}
+                    </td>
+
+                    <td>{{ candidate.filename }}</td>
+
+                    <td>{{ candidate.similarity_score }}%</td>
+
+                    <td>{{ candidate.skill_score }}%</td>
+
+                    <td>
+                        <strong>{{ candidate.score }}%</strong>
+                    </td>
+
+                    <td>
+                        {% if candidate.matched_skills %}
+                            {{ candidate.matched_skills | join(", ") }}
+                        {% else %}
+                            No matching skills
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <p class="note">
+        AI scores are preliminary matching indicators, not hiring decisions.
+        Review each resume manually before making recruitment decisions.
+    </p>
+
+    {% else %}
+
+    <div class="home-card">
+
+        <h2>No Candidates Available</h2>
+
+        <p>Upload multiple PDF resumes to see their individual rankings.</p>
+
+        <a href="/upload" class="download">
+            Upload Resumes 🚀
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
